@@ -4,3 +4,7 @@ flask-sqlalchemy
 flask-migrate
 flask-login
 email-validator
+flask_session
+flask-socketio
+eventlet
+gunicorn
