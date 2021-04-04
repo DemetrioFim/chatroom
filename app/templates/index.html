@@ -3,13 +3,14 @@
 {% block content %}
     <h1>{{ current_user.username }}!</h1>
     {% if posts %}
-        <div id="posts">
+        <div id="posts" style="max-height: 50%; overflow: auto; border: 1px solid;">
             {% for post in posts %}
                 {% include '_post.html' %}
             {% endfor %}
         </div>
+        <br>
     {% endif %}
-    <div id="log"></div>
+    <div id="log" style="max-height: 20%; overflow: auto;"></div>
     <form id="broadcast" method="POST" action='#'>
         <input type="text" name="broadcast_data" id="broadcast_data" placeholder="Message">
         <input type="submit" value="Send">
