@@ -3,6 +3,7 @@ from app import app, db
 from app.forms import LoginForm, RegistrationForm, PostForm
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Post
+from app.chatbot import get_stock
 from werkzeug.urls import url_parse
 from flask_socketio import SocketIO, emit, disconnect
 
@@ -91,7 +92,10 @@ def my_broadcast_event(message):
     if data:
         print(data)
         if data.startswith('/stock='):
-            print('Comando excepcionado executado!')
+            msg = get_stock(data)
+            emit('my_response',
+                 {'data': msg, 'user': 'bot', 'count': session['receive_count']},
+                 broadcast=True)
         else:
             post = Post(body=message['data'], author=current_user)
             db.session.add(post)

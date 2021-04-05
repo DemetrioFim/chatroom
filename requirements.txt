@@ -8,3 +8,4 @@ flask_session
 flask-socketio
 eventlet
 gunicorn
+pandas
