@@ -44,7 +44,7 @@ def login():
 
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
+        user = User.query.filter_by(email=form.email.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
             return redirect(url_for('login'))
@@ -68,11 +68,14 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)
-        user.set_password(form.password.data)
-        db.session.add(user)
-        db.session.commit()
-        flash('Congratulations, your registration was successful!')
-        return redirect(url_for('login'))
+        if not User.query.filter_by(email=form.email.data).first():
+            user.set_password(form.password.data)
+            db.session.add(user)
+            db.session.commit()
+            flash('Congratulations, your registration was successful!')
+            return redirect(url_for('login'))
+        else:
+            flash('Email already exist!!')
     return render_template('register.html', title='Register', form=form)
 
 

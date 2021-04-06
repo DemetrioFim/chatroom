@@ -34,6 +34,7 @@
                 // variety of ways
                 $('form#broadcast').submit(function(event) {
                     socket.emit('my_broadcast_event', {data: $('#broadcast_data').val(), user: '{{ current_user.username }}' });
+                    $('#broadcast_data').val('')
                     return false;
                     });
                 $('form#disconnect').submit(function(event) {
