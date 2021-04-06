@@ -9,6 +9,5 @@ def get_stock(data):
             price = float(df['Close'].values[0])
             msg = f"{share.upper()} quote is ${price} per share"
         except Exception as e:
-            print(e)
             msg = "Share not found!"
         return msg
